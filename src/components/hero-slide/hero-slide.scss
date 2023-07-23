@@ -1,0 +1,105 @@
+@use "../../scss/" as *;
+
+.hero-slide {
+    margin-bottom: 3rem;
+    
+    &__item {
+        padding: 10rem 0 9rem;
+        width: 100%;
+        position: relative;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include overlay();
+        }
+        
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(to top, $body-bg, rgba($black, 0));
+        }
+
+        &__content {
+            @include flex(center, center);
+            position: relative;
+            // margin-right: 200px;
+
+            &__info {
+                width: 55%;
+                position: relative;
+                padding-right: 4rem;
+
+                .name-movie {
+                    font-size: 3rem;
+                    font-weight: 600;
+
+                    @include flex(center, flex-start)
+                }
+
+                .overview {
+                    font-size: 0.9rem;
+                    text-align: justify;
+                    margin: 10px 0 30px;
+                }
+            }
+            
+            &__poster {
+                position: relative;
+                @include flex(center, flex-start);
+    
+                img {
+                    width: 300px !important; 
+                    border-radius: $border-radius;
+                    box-shadow: $box-shadow;
+                    
+                    transform: scale(0);
+                    transition: transform 0.7s ease;
+
+
+                }
+            }
+
+            .btns {
+                // background-color: aliceblue;
+                @include flex(center, space-evenly)
+            }
+            
+            .btns,
+            .name-movie,
+            .overview {
+                // opacity: 0;
+                transform: translateY(-200px);
+                transition: transform 0.5s ease, opacity 0.5s ease;
+            }
+        }
+
+        &.active &__content__poster img {
+            transform: scale(1);
+        }
+            
+            
+
+        &.active &__content {
+            .btns,
+            .name-movie,
+            .overview {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+        }
+    }
+}
